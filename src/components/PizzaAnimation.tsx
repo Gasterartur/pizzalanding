@@ -37,20 +37,23 @@ export default function PizzaAnimation() {
             className="flex flex-col lg:flex-row items-center justify-center w-full gap-y-8 lg:gap-x-16 px-6"
           >
             {/* ГРУППА 1: ГРЯЗНАЯ ПОСУДА */}
-            <div className="flex flex-col items-center gap-3">
-              <div className="relative w-[150px] h-[150px] lg:w-[20vw] lg:h-[20vw] lg:max-w-[300px] lg:max-h-[300px] rounded-full overflow-hidden border-[6px] lg:border-[12px] border-red-50 shadow-xl">
-                <Image
-                  src="/left-image.jpg"
-                  alt="Dirty dishes"
-                  fill
-                  className="object-cover"
-                  priority
-                />
-              </div>
-              <span className="text-red-500 font-black uppercase text-sm lg:text-2xl italic">
-               Sieht es nach dem Kochen bei Ihnen auch so aus?
-              </span>
-            </div>
+          <div className="flex flex-col items-center gap-4"> {/* Увеличил отступ между фото и текстом */}
+  {/* КРУГ: Сделал 150x150 для мобилок, чтобы был ровный круг */}
+  <div className="relative w-[150px] h-[150px] lg:w-[20vw] lg:h-[20vw] lg:max-w-[300px] lg:max-h-[300px] rounded-full overflow-hidden border-[6px] lg:border-[12px] border-red-50 shadow-xl">
+    <Image
+      src="/left-image.jpg"
+      alt="Dirty dishes"
+      fill
+      className="object-cover"
+      priority
+    />
+  </div>
+
+  {/* ТЕКСТ: Добавил ограничение по ширине (max-w) */}
+  <span className="text-red-500 font-black uppercase text-sm lg:text-2xl italic text-center max-w-[180px] lg:max-w-[350px] leading-tight">
+    Sieht es nach dem Kochen <br className="hidden md:block" /> bei Ihnen auch so aus?
+  </span>
+</div>
 
             {/* ГРУППА 2: ТЕКСТ (ЦЕНТР) */}
             <div className="text-center max-w-[500px]">
