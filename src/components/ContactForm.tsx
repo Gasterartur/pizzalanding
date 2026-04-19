@@ -15,7 +15,7 @@ export default function ContactForm() {
         >
           {/* Заголовок формы */}
           <div className="text-center mb-12">
-            <h2 className="text-5xl font-black text-gray-900 uppercase italic tracking-tight">
+            <h2 className="text-3xl font-black text-gray-900 uppercase italic tracking-tight">
               Jetzt Bestellen
             </h2>
             <div className="h-1.5 w-20 bg-orange-500 mx-auto mt-4 rounded-full" />

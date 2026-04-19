@@ -1,27 +1,80 @@
-// src/components/Menu.tsx
-export default function Menu() {
-  const products = [
-    { name: "Pizza Margherita", price: "12.90€", img: "https://images.unsplash.com/photo-1604382354936-07c5d9983bd3?w=800", desc: "Frische Tomaten, Mozzarella, Basilikum." },
-    { name: "Pizza Diavola", price: "14.50€", img: "https://images.unsplash.com/photo-1534308983496-4fabb1a015ee?w=800", desc: "Scharfe Salami, Peperoni, rote Zwiebeln." }
-  ];
+'use client';
+import { useState } from 'react';
+import Image from 'next/image';
+import { motion, AnimatePresence } from 'framer-motion';
+import { menuData } from './MenuData';
+
+const categories = [
+  { id: 'pizza', name: '🍕 Pizza' },
+  { id: 'pasta', name: '🍝 Pasta' },
+  { id: 'desserts', name: '🍰 Deserte' },
+  { id: 'drinks', name: '🥤 Getränke' },
+];
+
+
+
+export default function MenuSection() {
+  const [activeTab, setActiveTab] = useState('pizza');
 
   return (
-    <section id="menu" className="py-20 px-4 max-w-7xl mx-auto">
-        {/* остальной код меню */}
-      <h2 className="text-5xl font-black text-center mb-16 uppercase italic">Unser Menu</h2>
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
-        {products.map((p, i) => (
-          <div key={i} className="group bg-gray-50 rounded-[2.5rem] overflow-hidden shadow-sm hover:shadow-2xl transition-all">
-            <img src={p.img} alt={p.name} className="h-64 w-full object-cover group-hover:scale-110 transition-duration-500" />
-            <div className="p-8">
-              <div className="flex justify-between items-center mb-4">
-                <h3 className="text-2xl font-bold">{p.name}</h3>
-                <span className="text-orange-600 font-black text-xl">{p.price}</span>
-              </div>
-              <p className="text-gray-600">{p.desc}</p>
-            </div>
-          </div>
-        ))}
+    <section id="menu" className="py-20 bg-gray-50 overflow-hidden">
+      <div className="max-w-6xl mx-auto px-4">
+        <h2 className="text-4xl md:text-6xl font-black text-center mb-12 uppercase italic text-gray-900">
+          Speisekarte
+        </h2>
+        
+        <div className="flex overflow-x-auto pb-6 gap-3 no-scrollbar justify-start md:justify-center">
+          {categories.map((cat) => (
+            <button
+              key={cat.id}
+              onClick={() => setActiveTab(cat.id)}
+              className={`shrink-0 px-8 py-4 rounded-2xl font-black text-lg transition-all ${
+                activeTab === cat.id 
+                  ? 'bg-orange-600 text-white shadow-xl -translate-y-1' 
+                  : 'bg-white text-gray-500 hover:bg-orange-50 border border-gray-100'
+              }`}
+            >
+              {cat.name}
+            </button>
+          ))}
+        </div>
+
+        <div className="mt-8 min-h-[400px]">
+          <AnimatePresence mode="wait">
+            <motion.div 
+              key={activeTab}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -20 }}
+              transition={{ duration: 0.3 }}
+              className="grid grid-cols-1 md:grid-cols-2 gap-6"
+            >
+              {menuData[activeTab].map((item) => (
+                <div key={item.id} className="bg-white p-4 rounded-[2.5rem] shadow-sm border border-gray-100 flex items-center gap-4 md:gap-6 hover:shadow-md transition-shadow">
+                  {/* ИЗОБРАЖЕНИЕ */}
+                  <div className="relative w-24 h-24 md:w-32 md:h-32 shrink-0 overflow-hidden rounded-[1.8rem] bg-gray-100">
+                    <Image src={item.img} alt={item.name} fill className="object-cover" />
+                  </div>
+
+                  {/* ТЕКСТ */}
+                  <div className="flex-grow min-w-0">
+                    <div className="flex justify-between items-start gap-2 mb-1">
+                      <h3 className="text-lg md:text-2xl font-black text-gray-800 uppercase italic truncate">
+                        {item.name}
+                      </h3>
+                      <span className="text-orange-600 font-black text-base md:text-xl whitespace-nowrap">
+                        {item.price}€
+                      </span>
+                    </div>
+                    <p className="text-gray-500 text-xs md:text-base leading-tight line-clamp-2">
+                      {item.desc}
+                    </p>
+                  </div>
+                </div>
+              ))}
+            </motion.div>
+          </AnimatePresence>
+        </div>
       </div>
     </section>
   );
