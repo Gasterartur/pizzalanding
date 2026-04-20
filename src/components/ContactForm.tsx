@@ -47,7 +47,7 @@ export default function ContactForm() {
             
             {/* Сообщение об успехе/ошибке */}
             {status === 'success' && <p className="text-green-600 mt-4 font-bold">✅ Bestellung gesendet!</p>}
-            {status === 'error' && <p className="text-red-600 mt-4 font-bold">❌ Fehler. Versuchen Sie es позже.</p>}
+            {status === 'error' && <p className="text-red-600 mt-4 font-bold">❌ Fehler. Versuchen Sie es später.</p>}
           </div>
 
           <form onSubmit={handleSubmit} className="space-y-8">

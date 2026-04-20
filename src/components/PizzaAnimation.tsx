@@ -8,7 +8,7 @@ export default function PizzaAnimation() {
   const [step, setStep] = useState(1);
 
   useEffect(() => {
-    const timer = setTimeout(() => setStep(2), 5000);
+    const timer = setTimeout(() => setStep(2), 6000);
     return () => clearTimeout(timer);
   }, []);
 
@@ -59,13 +59,13 @@ export default function PizzaAnimation() {
 
             {/* ГРУППА 2: ТЕКСТ (ЦЕНТР) */}
             <div className="text-center max-w-[500px]">
-              <h2 className="text-2xl md:text-4xl lg:text-7xl font-black text-gray-800 leading-tight lg:leading-[0.9] uppercase italic m-0">
+              <h2 className="text-2xl md:text-4xl lg:text-7xl font-black text-gray-800 leading-tight gap-16 lg:leading-[0.9] uppercase italic m-0">
                 Wollen Sie <br />
-                <span className="text-red-600">müdich fressen</span> <br />
+                <span className="text-red-600">müde und gestresst das Essen fassen</span> <br />
                 <span className="text-gray-300 text-lg lg:text-3xl font-light not-italic block my-2 lg:my-6 tracking-[0.3em]">
                   ODER
                 </span>
-                <span className="text-green-600">frisch & köstlich essen?</span>
+                <span className="text-green-600">frisch & köstlich genießen?</span>
               </h2>
             </div>
 
