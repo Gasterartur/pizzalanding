@@ -2,8 +2,10 @@
 
 import { useState } from 'react'; // Добавили
 import { motion } from 'framer-motion';
+import { useCart } from '@/context/CartContext';
 
 export default function ContactForm() {
+  const { items, total, clear } = useCart();
   // Состояния для полей
   const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
   const [formData, setFormData] = useState({ name: '', phone: '', message: '' });
@@ -12,16 +14,27 @@ export default function ContactForm() {
     e.preventDefault();
     setStatus('loading');
 
+    const orderSummary = items
+      .map((item) => `${item.qty}x ${item.name} (${(item.price * item.qty).toFixed(2)}€)`)
+      .join('\n');
+    const fullMessage = [
+      orderSummary && `Bestellung:\n${orderSummary}\nGesamt: ${total.toFixed(2)}€`,
+      formData.message,
+    ]
+      .filter(Boolean)
+      .join('\n\n');
+
     try {
       const res = await fetch('/api/contact', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(formData),
+        body: JSON.stringify({ ...formData, message: fullMessage }),
       });
 
       if (res.ok) {
         setStatus('success');
         setFormData({ name: '', phone: '', message: '' }); // Очистка
+        clear();
       } else {
         setStatus('error');
       }
@@ -49,6 +62,24 @@ export default function ContactForm() {
             {status === 'success' && <p className="text-green-600 mt-4 font-bold">✅ Bestellung gesendet!</p>}
             {status === 'error' && <p className="text-red-600 mt-4 font-bold">❌ Fehler. Versuchen Sie es später.</p>}
           </div>
+
+          {items.length > 0 && (
+            <div className="mb-10 bg-orange-50 rounded-3xl p-6 space-y-2">
+              <h3 className="text-sm font-black text-gray-500 uppercase tracking-widest mb-2">
+                Ihre Bestellung
+              </h3>
+              {items.map((item) => (
+                <div key={item.id} className="flex justify-between text-gray-800 font-semibold">
+                  <span>{item.qty}x {item.name}</span>
+                  <span>{(item.price * item.qty).toFixed(2)}€</span>
+                </div>
+              ))}
+              <div className="flex justify-between text-orange-600 font-black text-lg border-t-2 border-orange-100 pt-2 mt-2">
+                <span>Gesamt</span>
+                <span>{total.toFixed(2)}€</span>
+              </div>
+            </div>
+          )}
 
           <form onSubmit={handleSubmit} className="space-y-8">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
@@ -78,13 +109,15 @@ export default function ContactForm() {
             </div>
 
             <div className="space-y-2">
-              <label className="text-sm font-black text-gray-400 uppercase ml-4 tracking-widest">Ihre Bestellung</label>
-              <textarea 
-                required
+              <label className="text-sm font-black text-gray-400 uppercase ml-4 tracking-widest">
+                {items.length > 0 ? 'Anmerkungen (optional)' : 'Ihre Bestellung'}
+              </label>
+              <textarea
+                required={items.length === 0}
                 value={formData.message}
                 onChange={(e) => setFormData({...formData, message: e.target.value})}
                 rows={4}
-                placeholder="Welche Pizza(s) möchten Sie bestellen?"
+                placeholder={items.length > 0 ? 'z.B. Allergien, Lieferhinweise...' : 'Welche Pizza(s) möchten Sie bestellen?'}
                 className="w-full px-8 py-5 bg-gray-50 border-2 border-transparent focus:border-orange-500 focus:bg-white rounded-3xl outline-none transition-all text-gray-800 font-semibold resize-none"
               ></textarea>
             </div>

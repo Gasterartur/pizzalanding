@@ -3,6 +3,7 @@ import { useState } from 'react';
 import Image from 'next/image';
 import { motion, AnimatePresence } from 'framer-motion';
 import { menuData } from './MenuData';
+import { useCart } from '@/context/CartContext';
 import './MenuSection.css'; // Импортируем созданный файл стилей
 
 const categories = [
@@ -14,6 +15,7 @@ const categories = [
 
 export default function MenuSection() {
   const [activeTab, setActiveTab] = useState('pizza');
+  const { addItem } = useCart();
 
   return (
     <section id="menu" className="menu-section">
@@ -76,6 +78,20 @@ export default function MenuSection() {
                     <p className="item-description">
                       {item.desc}
                     </p>
+
+                    <button
+                      className="add-to-cart-btn"
+                      onClick={() =>
+                        addItem({
+                          id: item.id,
+                          name: item.name,
+                          price: parseFloat(item.price),
+                          img: item.img,
+                        })
+                      }
+                    >
+                      + In den Warenkorb
+                    </button>
                   </div>
 
                 </div>
