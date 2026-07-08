@@ -198,8 +198,9 @@
 }
 
 .logo-container {
-    overflow: auto;
-    width: 40vw;
+  overflow: hidden;
+  width: auto;
+  max-width: 90vw;
   background-color: rgba(255, 255, 255, 0.95);
   backdrop-filter: blur(12px);
   border-radius: 0.75rem;
@@ -207,6 +208,7 @@
   display: flex;
   align-items: center;
   gap: 0.75rem;
+  padding: 0.5rem 1rem 0.5rem 0.5rem;
   box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
 }
 
@@ -218,8 +220,8 @@
 }
 
 .logo-letter {
-  width: 0.1vw;
-  height: 0.1vw;
+  width: 2.5rem;
+  height: 2.5rem;
   background-color: #ea580c;
   border-radius: 0.5rem;
   display: flex;
@@ -243,15 +245,10 @@
 
 .logo-text {
   font-weight: 900;
-  font-size: 5vw;
+  font-size: clamp(1rem, 4vw, 1.875rem);
   color: #111827;
   text-transform: uppercase;
-}
-
-@media (min-width: 768px) {
-  .logo-text {
-    font-size: 5vw;
-  }
+  white-space: nowrap;
 }
 
 /* Контент и Кнопки */

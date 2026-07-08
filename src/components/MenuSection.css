@@ -164,13 +164,13 @@
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  margin-bottom: 1vw; /* mb-4 */
+  margin-bottom: 1rem; /* mb-4 */
   border-bottom: 2px solid #ffedd5; /* border-orange-100 */
   padding-bottom: 0.75rem; /* pb-3 */
 }
 
 .item-name {
-  font-size: 3vw; /* text-2xl */
+  font-size: clamp(1.125rem, 1rem + 1vw, 1.5rem); /* text-2xl */
   font-weight: 900;
   color: #111827;
   text-transform: uppercase;
@@ -185,7 +185,7 @@
 .item-price {
   color: #ea580c; /* text-orange-600 */
   font-weight: 900;
-  font-size: 2vw; /* text-xl */
+  font-size: clamp(1rem, 0.9rem + 0.5vw, 1.25rem); /* text-xl */
 }
 
 
@@ -193,7 +193,7 @@
 /* Описание */
 .item-description {
   color: #4b5563; /* text-gray-600 */
-  font-size: 2vw; /* text-base */
+  font-size: clamp(0.875rem, 0.8rem + 0.375vw, 1rem); /* text-base */
   line-height: 1.625; /* leading-relaxed */
   font-weight: 500;
   margin: 0;

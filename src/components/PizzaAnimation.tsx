@@ -43,6 +43,7 @@ export default function PizzaAnimation() {
                   src="/left-image.jpg"
                   alt="Dirty dishes"
                   fill
+                  sizes="(min-width: 1024px) 20vw, 150px"
                   className="object-cover"
                   priority
                 />
@@ -80,6 +81,7 @@ export default function PizzaAnimation() {
                   src="/right-image.jpg"
                   alt="Clean dishes"
                   fill
+                  sizes="(min-width: 1024px) 20vw, 150px"
                   className="object-cover"
                   priority
                 />
