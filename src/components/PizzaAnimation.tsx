@@ -25,14 +25,19 @@ export default function PizzaAnimation() {
           /* ПЕРВЫЙ КАДР (ПОСУДА) */
           <motion.div
             key="step1"
-            initial={{ opacity: 0 }}
+            initial={{ opacity: 1 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0, scale: 0.95, filter: "blur(10px)" }}
-            transition={{ duration: 0.8 }}
+            transition={{ duration: 0.4 }}
             className="step1-wrapper"
           >
             {/* ГРУППА 1: ГРЯЗНАЯ ПОСУДА */}
-            <div className="dishes-group">
+            <motion.div
+              className="dishes-group"
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.4, delay: 0 }}
+            >
               <div className="dish-image-circle dirty">
                 <Image
                   src="/left-image.jpg"
@@ -46,20 +51,30 @@ export default function PizzaAnimation() {
               Sieht es nach dem Kochen <br className="br-hidden-mobile" /> bei
               Ihnen auch so aus?
               </span>
-            </div>
+            </motion.div>
 
             {/* ГРУППА 2: ТЕКСТ (ЦЕНТР) */}
-            <div className="center-text-group">
+            <motion.div
+              className="center-text-group"
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.4, delay: 3 }}
+            >
               <h2 className="main-title">
                 Wollen Sie <br />
                 <span className="text-red-600">müde und gestresst das Essen fassen</span> <br />
                 <span className="divider-text">ODER</span>
                 <span className="text-green-600">frisch & köstlich genießen?</span>
               </h2>
-            </div>
+            </motion.div>
 
             {/* ГРУППА 3: ЧИСТАЯ ПОСУДА */}
-            <div className="dishes-group">
+            <motion.div
+              className="dishes-group"
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.4, delay: 1 }}
+            >
               <div className="dish-image-circle clean">
                 <Image
                   src="/right-image.jpg"
@@ -72,7 +87,7 @@ export default function PizzaAnimation() {
               <span className="dish-text clean">
                 oder doch lieber so?
               </span>
-            </div>
+            </motion.div>
           </motion.div>
         ) : (
           /* ВТОРОЙ КАДР (ВИДЕО) */
